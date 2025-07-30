@@ -1,0 +1,221 @@
+* { box-sizing: border-box;}
+
+#error-message {
+    color: #ff4d4d;
+    font-size: 14px;
+    margin-left: 10px;
+    margin-top: 2px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  background-color: #181925;
+}
+
+#container {
+  position: relative; /* REQUIRED for overlay to align */
+  width: 1000px;
+  max-width: 95vw;
+  height: 700px;
+  margin: 200px auto 40px;
+  background-color: #181925;
+  border-radius: 18px;
+  box-shadow: 0 0 20px 5px #6a11cb, 0 0 40px 10px #2575fc;
+  border: 2px solid #6a11cb;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login, .signup {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.6s ease-in-out;
+  background-color: #181925;
+  border-radius: 18px;
+  box-shadow: 0 0 10px 2px #6a11cb inset;
+  color: white;
+  z-index: 1;
+}
+
+.login {
+  left: 0;
+  opacity: 1;
+  z-index: 2;
+}
+
+.signup {
+  left: 0;
+  opacity: 0;
+  z-index: 1;
+}
+
+#container.right-panel-active .login {
+  transform: translateX(100%);
+  opacity: 0;
+  z-index: 1;
+}
+
+#container.right-panel-active .signup {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 2;
+}
+
+#user-icon {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  align-self: center;
+  margin-top: 20px;
+}
+
+.login > h1, .signup > h1 {
+  align-self: center;
+}
+
+.login form input, .signup form input {
+  display: block;
+  margin: 5px 0 5px 10px;
+  width: 90%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background-color: #222233;
+  color: white;
+}
+
+#login-submit, #signup-submit {
+  width: 80%;
+  height: 50px;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  cursor: pointer;
+  align-self: center;
+  display: block;
+  margin: 10px auto 0;
+  box-shadow: 0 0 8px 5px rgba(106, 17, 203, 0.7), 0 0 40px 10px rgba(37, 117, 252, 0.5);
+  transition: box-shadow 0.3s;
+}
+
+#login-submit:hover, #signup-submit:hover {
+  box-shadow: 0 0 12px 8px rgba(106, 17, 203, 0.9), 0 0 80px 20px rgba(37, 117, 252, 0.7);
+}
+
+.login > form > span {
+  display: block;
+  align-self: center;
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+}
+
+.overlay-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 100;
+  transition: transform 0.6s ease-in-out;
+  border-radius: 18px;
+  box-shadow: 0 0 20px 5px #6a11cb, 0 0 40px 10px #2575fc;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  text-align: center;
+}
+
+#container.right-panel-active .overlay-container {
+  transform: translateX(-100%);
+}
+
+.overlay-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 40px;
+  text-align: center;
+  color: white;
+}
+
+.overlay-panel h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.overlay-panel p {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.overlay-panel button {
+  padding: 10px 25px;
+  border: 2px solid white;
+  border-radius: 20px;
+  background: transparent;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+/* Hide signIn button when right-panel-active is NOT present (i.e., on sign-in panel) */
+#container:not(.right-panel-active) .overlay-panel.overlay-left button#signIn {
+  display: none;
+}
+
+/* Hide signUp button when right-panel-active IS present (i.e., on sign-up panel) */
+#container.right-panel-active .overlay-panel.overlay-right button#signUp {
+  display: none;
+}
+
+
+#container:not(.right-panel-active) .overlay-panel.overlay-left h1,
+#container:not(.right-panel-active) .overlay-panel.overlay-left p {
+  display: none;
+}
+
+#container.right-panel-active .overlay-panel.overlay-right h1,
+#container.right-panel-active .overlay-panel.overlay-right p {
+  display: none;
+}
+
+.overlay-panel button:hover {
+  background: white;
+  color: #6a11cb;
+  border-color: #6a11cb;
+}
+
+#error-message {
+  color: #ff4d4d;
+  font-size: 14px;
+  margin-left: 10px;
+  margin-top: 2px;
+  margin-bottom: 5px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+}

@@ -1,0 +1,83 @@
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spotify Song Downloader</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Spotify Song Downloader</h1>
+
+    <section class="about">
+      <p>Enter a Spotify song link below to download your favorite tracks easily and quickly.</p>
+    </section>
+
+    <section class="input-section">
+      <input type="text" id="songLink" placeholder="Paste Spotify song link here..." />
+      <button id="downloadBtn">Download</button>
+    </section>
+
+    <section class="output-section" id="output">
+      <!-- Output will be shown here -->
+    </section>
+  </div>
+
+
+
+  <script>
+    document.getElementById('downloadBtn').addEventListener('click', async () => {
+      const songLink = document.getElementById('songLink').value.trim();
+      const output = document.getElementById('output');
+      output.innerHTML = '';
+
+      if (!songLink) {
+        output.textContent = 'Please enter a Spotify song link.';
+        return;
+      }
+
+      // Extract song ID from Spotify URL
+      const regex = /track\/([a-zA-Z0-9]+)/;
+      const match = songLink.match(regex);
+      if (!match || !match[1]) {
+        output.textContent = 'Invalid Spotify song link.';
+        return;
+      }
+      const songId = match[1];
+
+      const url = `https://spotify-downloader9.p.rapidapi.com/downloadSong?songId=${encodeURIComponent(songId)}`;
+
+      try {
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'x-rapidapi-key': 'd44e6cbbffmsh4904ffce35d0541p157e2bjsn63f9db9e85db',
+            'x-rapidapi-host': 'spotify-downloader9.p.rapidapi.com'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`API request failed with status ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.success && data.data && data.data.downloadLink) {
+          const downloadLink = data.data.downloadLink;
+          output.innerHTML = `
+            <p>Song Title: ${data.data.title}</p>
+            <p>Artist: ${data.data.artist}</p>
+            <a href="${downloadLink}" download target="_blank">Click here to download the song</a>
+          `;
+        } else {
+          output.textContent = 'Failed to get download link for the song.';
+        }
+      } catch (error) {
+        output.textContent = `Error: ${error.message}`;
+      }
+    });
+  </script>
+</body>
+</html>

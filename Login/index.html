@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/signup</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div id="container">
+        <div class="login">
+            <img id="user-icon" src="icons/wired-gradient-21-avatar-hover-jumping (1).gif">
+            <h1>Welcome back</h1>
+            <form id="info">
+                <label for="email">Email Address<br></label>
+                <input type="email" id="email" value="" placeholder="Email Address" required><br>
+
+                <label for="password">Password<br></label>
+                <input id="password" type="password" value="" minlength="8" maxlength="20" placeholder="Password" required><br>
+
+                <button id="login-submit" type="submit">Sign in</button>
+                <span><br>Don't Have an account? <a href="#signup"></a></span> <br>
+            </form>
+        </div>
+        <div class="signup">
+            <img id="user-icon" src="icons/user-signup.gif">
+            <h1>Create Account</h1>
+            <form id="signup-info">
+                <label for="name">Full Name<br></label>
+                <input type="text" id="name" value="" placeholder="John" required>
+
+                <label for="email-signup"><br>Email Address<br></label>
+                <input type="email" id="email-signup" value="" placeholder="Email Address">
+
+                <label for="password-signup"><br>Password<br></label>
+                <input id="password-signup" type="password" placeholder="password" value="" minlength="8" maxlength="20" required>
+
+                <label for="confirmpassword"><br>Confirm Password<br></label>
+                <input id="confirmpassword" type="password" placeholder="confirm password" value="" minlength="8" maxlength="20" required><br>
+
+                <div id="error-message" style="color: red; font-size: 14px; margin-left: 10px;"></div>
+
+                <button id="signup-submit" type="submit">Sign up</button>
+            </form>
+            </div> 
+
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>Welcome Back!</h1>
+                        <p>To keep connected with us please login with your personal info</p>
+                        <button class="ghost" id="signIn">Sign In</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>Hello, Friend!</h1>
+                        <p>Enter your personal details and start journey with us</p>
+                        <button class="ghost" id="signUp">Sign Up</button>
+                    </div>
+                </div>
+            </div> 
+
+            <script>
+                document.getElementById('signup-info').addEventListener('submit', function(event) {
+                    const password = document.getElementById('password-signup').value;
+                    const confirmPassword = document.getElementById('confirmpassword').value;
+                    const errorMessage = document.getElementById('error-message');
+
+                    if (password !== confirmPassword) {
+                        event.preventDefault();
+                        errorMessage.textContent = "Passwords do not match.";
+                    } else {
+                        errorMessage.textContent = "";
+                    }
+                });
+            </script>
+           <script>
+                const container = document.getElementById('container');
+                const signUpButton = document.getElementById('signUp');
+                const signInButton = document.getElementById('signIn');
+
+                signUpButton.addEventListener('click', () => {
+                container.classList.add('right-panel-active');
+                });
+
+                signInButton.addEventListener('click', () => {
+                container.classList.remove('right-panel-active');
+                });
+            </script>
+
+        </div>    
+    </div>
+</body>
+</html>
