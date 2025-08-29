@@ -1,0 +1,9 @@
+a="abcd"
+print(a)
+print(a.isupper())
+print("efgh".upper())
+print(a.capitalize())
+print(a.title())
+print(a.isalpha())
+print(len(a))
+print(a[0])
